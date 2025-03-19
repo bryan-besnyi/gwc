@@ -16,8 +16,8 @@ export default function Home() {
     
     try {
       const endpoint = apiSource === "nextjs" 
-        ? `/api/hello` 
-        : `http://localhost:5000/api/hello`;
+        ? `/api/nextjs-hello` 
+        : `/api/python-hello`;
       
       const response = await fetch(endpoint, {
         method: 'POST',
