@@ -1,7 +1,9 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  /* config options here */
+const nextConfig = {
+  reactStrictMode: true,
+  pageExtensions: ["ts", "tsx", "mdx", "md"],
+  experimental: {
+    mdxRs: true,
+  },
 };
 
 export default nextConfig;
