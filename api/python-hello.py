@@ -10,8 +10,8 @@ class handler(BaseHTTPRequestHandler):
         name = query_components.get('name', ['Friend'])[0]
         
         # Log request details (logs appear in Vercel deployment logs)
-        print("\n=== PYTHON SERVER-SIDE REQUEST PROCESSING ===")
-        print(f"🖥️  Processing GET request at: {datetime.datetime.now().strftime('%H:%M:%S')}")
+        print("\n=== PYTHON API PROCESSING ===")
+        print(f"🐍 Processing GET request at: {datetime.datetime.now().strftime('%H:%M:%S')}")
         print(f"📨 Request params: name = \"{name}\"")
         print(f"🌐 Request URL: {self.path}")
         print("=======================================\n")
@@ -25,9 +25,9 @@ class handler(BaseHTTPRequestHandler):
         self.end_headers()
         
         response_data = {
-            'message': f"Hello from Python, {name}!",
+            'message': f"Hello from Python API, {name}!",
             'timestamp': datetime.datetime.now().isoformat(),
-            'processedOn': 'python'
+            'processedOn': 'python-api'
         }
         
         self.wfile.write(json.dumps(response_data).encode())
@@ -43,8 +43,8 @@ class handler(BaseHTTPRequestHandler):
             name = body.get('name')
             
             # Log request details
-            print("\n=== PYTHON SERVER-SIDE REQUEST PROCESSING ===")
-            print(f"🖥️  Processing POST request at: {datetime.datetime.now().strftime('%H:%M:%S')}")
+            print("\n=== PYTHON API PROCESSING ===")
+            print(f"🐍 Processing POST request at: {datetime.datetime.now().strftime('%H:%M:%S')}")
             print(f"📦 Request body: {json.dumps(body, indent=2)}")
             print(f"🌐 Request URL: {self.path}")
             print("=======================================\n")
@@ -66,9 +66,9 @@ class handler(BaseHTTPRequestHandler):
             self.end_headers()
             
             response_data = {
-                'message': f"Hello from Python, {name}!",
+                'message': f"Hello from Python API, {name}!",
                 'timestamp': datetime.datetime.now().isoformat(),
-                'processedOn': 'python'
+                'processedOn': 'python-api'
             }
             
             self.wfile.write(json.dumps(response_data).encode())

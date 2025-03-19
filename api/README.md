@@ -1,24 +1,32 @@
-# Python API for Next.js Project
+# API Routes in This Project
 
-This directory contains serverless Python functions that work with Vercel deployment.
+This project uses both Next.js API routes and Python serverless functions, giving you flexibility in how you implement your backend.
+
+## API Structure
+
+### Python API Endpoints
+- `/api/hello` - The original Python endpoint
+- `/api/python-hello` - A clearly named Python endpoint
+
+### Next.js API Endpoints
+- `/api/nextjs-hello` - A Next.js API route that works alongside the Python endpoints
 
 ## How it works
 
 ### In Development
 - The original Flask server (`server.py`) in the root directory runs on port 5000
-- The Next.js application uses a rewrite rule to forward `/api/*` requests to the Flask server
+- The Next.js application uses rewrite rules to forward specific Python API routes to the Flask server
+- Next.js API routes work normally without interference
 - Run both servers together with `npm run dev:all`
 
 ### In Production (Vercel)
-- The serverless functions in this `/api` directory are deployed with the `@vercel/python` builder
-- Each `.py` file becomes an API endpoint with the path `/api/filename`
-- The routing is handled by Vercel according to the configuration in `vercel.json`
+- The serverless Python functions in this `/api` directory are deployed with the `@vercel/python` builder
+- Next.js API routes are bundled with the application
+- Routing is handled by Vercel according to the configuration in `vercel.json`
 
-## Available Endpoints
+## Testing All APIs
 
-- `/api/hello` - GET and POST endpoint
-  - GET: Takes a `name` query parameter (`/api/hello?name=YourName`)
-  - POST: Takes a JSON body with a `name` field
+You can use the test page at `/test` to try out both API systems.
 
 ## Local Testing
 
@@ -31,4 +39,7 @@ vercel dev
 
 ## Development
 
-When adding new endpoints, simply create a new `.py` file in this directory with the appropriate handler class. 
+When adding new endpoints:
+- For Python API endpoints, create a new `.py` file in the `/api` directory
+- For Next.js API endpoints, create a new route file in the `/app/api` directory
+- Update the rewrite rules in `next.config.ts` if needed 

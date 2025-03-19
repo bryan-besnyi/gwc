@@ -5,10 +5,16 @@ const nextConfig = {
     mdxRs: true,
   },
   async rewrites() {
+    // In development, only proxy Python API endpoints to Flask server
+    // This allows Next.js API routes to work normally while also supporting Python
     return process.env.NODE_ENV === 'development' ? [
       {
-        source: '/api/:path*',
-        destination: 'http://localhost:5000/api/:path*' // Proxy to Flask in development
+        source: '/api/hello',
+        destination: 'http://localhost:5000/api/hello' // Python endpoint
+      },
+      {
+        source: '/api/python-hello',
+        destination: 'http://localhost:5000/api/hello' // Python endpoint with alternate name
       }
     ] : [];
   }
