@@ -33,7 +33,7 @@ const TacoRain: React.FC<TacoRainProps> = ({
     }
     
     // Calculate total weight for random selection
-    const totalWeight = itemTypes.reduce((acc, item) => acc + item.weight, 0);
+    // const totalWeight = itemTypes.reduce((acc, item) => acc + item.weight, 0);
     
     // Create initial items with one of each type to ensure we see all types
     if (rainItems.length === 0) {
@@ -95,7 +95,12 @@ const TacoRain: React.FC<TacoRainProps> = ({
       
       // Cleanup initial items after animation ends
       setTimeout(() => {
-        setRainItems(prev => prev.filter(item => !((item as any)?.key || '').startsWith('initial-item')));
+        setRainItems(prev => prev.filter(item => {
+          // Fix: Type-safe access to key property on ReactNode
+          const itemElement = React.isValidElement(item) ? item : null;
+          const key = itemElement?.key as string | undefined;
+          return !key?.startsWith('initial-item');
+        }));
       }, 10000); // Longer timeout for initial items
     }
     
@@ -172,8 +177,10 @@ const TacoRain: React.FC<TacoRainProps> = ({
       
       // Cleanup items after animation ends to prevent memory issues
       setTimeout(() => {
-        setRainItems(prev => prev.filter((item, i) => {
-          const itemKey = (item as any)?.key;
+        setRainItems(prev => prev.filter((item) => {
+          // Fix: Type-safe access to key property on ReactNode
+          const itemElement = React.isValidElement(item) ? item : null;
+          const itemKey = itemElement?.key as string | undefined;
           return itemKey !== key;
         }));
       }, (duration + delay) * 1000);
