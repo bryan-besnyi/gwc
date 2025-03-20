@@ -1,45 +1,42 @@
-# API Routes in This Project
+# API in This Project
 
-This project uses both Next.js API routes and Python serverless functions, giving you flexibility in how you implement your backend.
+This project uses both Next.js API routes and Python serverless functions on Vercel.
 
 ## API Structure
 
-### Python API Endpoints
-- `/api/hello` - The original Python endpoint
-- `/api/python-hello` - A clearly named Python endpoint
+### Python API Endpoint
+- `/api/python-hello` - Python serverless function that processes GET and POST requests
 
-### Next.js API Endpoints
-- `/api/nextjs-hello` - A Next.js API route that works alongside the Python endpoints
+### Next.js API Endpoint
+- `/api/nextjs-hello` - Next.js API route that processes GET and POST requests
 
 ## How it works
 
 ### In Development
-- The original Flask server (`server.py`) in the root directory runs on port 5000
-- The Next.js application uses rewrite rules to forward specific Python API routes to the Flask server
-- Next.js API routes work normally without interference
-- Run both servers together with `npm run dev:all`
+- Next.js API routes work through the Next.js development server
+- Python API routes work through Vercel's serverless functions when you use `vercel dev`
 
 ### In Production (Vercel)
-- The serverless Python functions in this `/api` directory are deployed with the `@vercel/python` builder
-- Next.js API routes are bundled with the application
-- Routing is handled by Vercel according to the configuration in `vercel.json`
+- The Python serverless function in this `/api` directory is deployed with the `@vercel/python` builder
+- The Next.js API route is bundled with the Next.js application
+- All routes are handled by Vercel according to the configuration in `vercel.json`
 
-## Testing All APIs
+## Testing Both APIs
 
-You can use the test page at `/test` to try out both API systems.
+You can use the homepage form to test both APIs or visit the test page at `/test` to try them out.
 
-## Local Testing
+## Local Testing with Vercel CLI
 
-To test the serverless functions locally, you can use the Vercel CLI:
+For the best local development experience that matches production:
 
 ```bash
 npm i -g vercel
 vercel dev
 ```
 
-## Development
+This will run both the Next.js app and the Python functions locally in the same way they'll run on Vercel.
 
-When adding new endpoints:
-- For Python API endpoints, create a new `.py` file in the `/api` directory
-- For Next.js API endpoints, create a new route file in the `/app/api` directory
-- Update the rewrite rules in `next.config.ts` if needed 
+## Requirements
+
+For Python serverless functions:
+- `requirements.txt` file is necessary for Vercel to install Python dependencies 
